@@ -1,46 +1,40 @@
-from sklearn.datasets import load_iris # Load the Iris Dataset
+import os
+import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+# Create outputs folder if it doesn't exist
+os.makedirs("outputs", exist_ok=True)
+# Load dataset
 iris = load_iris()
-X = iris.data #shape (150,4)
-y = iris.target #shape (150,0)
-print(iris.feature_names, iris.target_names)
-
-from sklearn.model_selection import train_test_split #Split into Training and Test Sets
-X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.2, random_state=42)
-
-from sklearn.tree import DecisionTreeClassifier #Initialise the Model
-model = DecisionTreeClassifier(random_state=42)
-
-model.fit(X_train, y_train) #Train (Fit) the Model
-
-y_pred = model.predict(X_test) #Making Predictions
-
-#Inspecting Predictions
-print("Predictions:",y_pred[:5])
-print("True labels:",y_test[:5])
-
-from sklearn.metrics import accuracy_score #Accuracy Metric
+X = iris.data
+y = iris.target
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=42
+)
+# Train model
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+# Predictions
+y_pred = model.predict(X_test)
+# Accuracy
 accuracy = accuracy_score(y_test, y_pred)
-print("Accuracy:", accuracy)
-
-from sklearn.metrics import confusion_matrix #Confusion Matrix
-cm = confusion_matrix(y_test, y_pred) 
-print(cm)
-
-import matplotlib.pyplot as plt #Display confusion Matrix
-plt.figure(figsize=(6, 5))
-plt.imshow(cm)
-plt.title("Iris Classifier Confusion Matrix")
+print(f"Model Accuracy: {accuracy:.2f}")
+# Confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+plt.figure()
+sns.heatmap(cm, annot=True, fmt="d",
+xticklabels=iris.target_names,
+yticklabels=iris.target_names)
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
-plt.colorbar()
-import os
-os.makedirs("outputs", exist_ok=True)
-plt.savefig ("outputs/confusion_matrix.png")
-
-plt.xticks(range(3), iris.target_names)
-plt.yticks (range (3), iris.target_names)
-
-for i in range (3):
-    for j in range (3):
-        plt.text(j, i, cm[i,j], ha="center", va="center")
-plt.show()
+plt.title("Confusion Matrix")
+plt.savefig("outputs/confusion_matrix.png")
+plt.close()
+# Save model
+joblib.dump(model, "outputs/model.joblib")
+print("Model and confusion matrix saved in outputs/")
