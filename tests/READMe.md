@@ -33,6 +33,7 @@ iris-classifier/
 │  └── iris_model.ipynb
 ├── outputs/
 │  └── confusion_matrix.png
+│    └── model.joblib
 ├── src/
 │  └── train.py
 ├── tests/
