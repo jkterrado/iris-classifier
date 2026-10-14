@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a simple machine learning project that uses the data set of Iris to clasify its flowers into three species which are Setosa, Versicolor and Virginica.
+End-to-end ML example from Digital Marketing Mastery Module.This is a simple machine learning project that uses the data set of Iris to clasify its flowers into three species which are Setosa, Versicolor and Virginica using scikit-learn.
 
 ## Quick Start 
 
