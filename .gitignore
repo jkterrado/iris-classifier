@@ -1,0 +1,25 @@
+# Python cache files
+__pycache__/
+*.__pyc
+*.pyo 
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+
+#IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+#Jupyter notebook checkpoints
+.ipynb_checkpoints/

@@ -1,0 +1,15 @@
+# Handle line endings automatically
+* text=auto
+
+#Ensure these files use LF line endings
+*.py text eol=LF
+*.ipynb text eol=LF
+*.md text eol=LF
+*txt text eol=LF
+
+#Binary files - don't mess with them
+*.png Binary
+*jpg Binary
+*jpeg Binary
+*.joblib Binary
+*.pkl Binary
